@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
     public static Address createAddress(final Scanner scanner) {
         System.out.println("Enter the address");
         System.out.println("City:");
@@ -21,14 +20,11 @@ public class Main {
         return new Address(cityNewBank, zipCodeNewBank, streetNewBank, houseNumberNewBank, apartmentNumberNewBank);
     }
 
-    public static void createBank(final Scanner scanner, final List<Bank> banks) {
+    public static Bank createBank(final Scanner scanner) {
         System.out.println("Create new bank");
         final String nameBank = scanner.nextLine();
-        createAddress(scanner);
         final BankBranch bankBranch = new BankBranch(createAddress(scanner));
-        final Bank bank = new Bank(nameBank, bankBranch);
-
-        banks.add(bank);
+        return new Bank(nameBank, bankBranch);
     }
 
     public static void listBank(final List<Bank> banks) {
@@ -46,18 +42,17 @@ public class Main {
         System.out.println(bankSelect);
     }
 
-    public static void deleteBank(final Scanner scanner, final List<Bank> banks) {
+    public static boolean deleteBank(final Scanner scanner, final List<Bank> banks) {
         System.out.println("Delete bank");
         final int remove = scanner.nextInt();
-        if (remove < banks.size()) {
-            banks.remove(remove);
-        } else {
-            System.out.println("Wrong id");
+        if (remove <= 0 || remove >= banks.size()) {
+            return false;
         }
+        banks.remove(remove);
+        return true;
     }
 
     public static void main(final String[] args) {
-
         final List<Bank> banks = new ArrayList<>();
         while (true) {
             System.out.println("What do you want to do?");
@@ -75,7 +70,7 @@ public class Main {
                 case 0:
                     return;
                 case 1:
-                    createBank(scanner, banks);
+                    banks.add(createBank(scanner));
                     break;
                 case 2:
                     listBank(banks);
@@ -84,7 +79,12 @@ public class Main {
                     selectBank(scanner, banks);
                     break;
                 case 4:
-                    deleteBank(scanner, banks);
+                    final boolean name = deleteBank(scanner, banks);
+                    if (name) {
+                        System.out.println("Done");
+                    } else {
+                        System.out.println("Error");
+                    }
                     break;
                 default:
                     System.out.println("Wrong choice");
