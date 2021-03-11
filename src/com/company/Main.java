@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void createBank(final Scanner scanner, final List<Bank> banks) {
-        System.out.println("Create new bank");
-        final String nameBank = scanner.nextLine();
+    public static Address createAddress(final Scanner scanner) {
         System.out.println("Enter the address");
         System.out.println("City:");
         final String cityNewBank = scanner.next();
@@ -20,8 +18,14 @@ public class Main {
         final int houseNumberNewBank = scanner.nextInt();
         System.out.println("Apartment number:");
         final int apartmentNumberNewBank = scanner.nextInt();
-        final Address address = new Address(cityNewBank, zipCodeNewBank, streetNewBank, houseNumberNewBank, apartmentNumberNewBank);
-        final BankBranch bankBranch = new BankBranch(address);
+        return new Address(cityNewBank, zipCodeNewBank, streetNewBank, houseNumberNewBank, apartmentNumberNewBank);
+    }
+
+    public static void createBank(final Scanner scanner, final List<Bank> banks) {
+        System.out.println("Create new bank");
+        final String nameBank = scanner.nextLine();
+        createAddress(scanner);
+        final BankBranch bankBranch = new BankBranch(createAddress(scanner));
         final Bank bank = new Bank(nameBank, bankBranch);
 
         banks.add(bank);
