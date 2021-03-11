@@ -45,7 +45,7 @@ public class Main {
     public static boolean deleteBank(final Scanner scanner, final List<Bank> banks) {
         System.out.println("Delete bank");
         final int remove = scanner.nextInt();
-        if (remove <= 0 || remove >= banks.size()) {
+        if (remove < 0 || remove >= banks.size()) {
             return false;
         }
         banks.remove(remove);
