@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
-    private final String name;
+    private String name;
     private final List<Client> clientList = new ArrayList<>();
     private final List<BankBranch> bankBranch = new ArrayList<>();
-    private BankBranch mainBankBranch;
+    private final BankBranch mainBankBranch;
 
-    public Bank(String name, BankBranch mainBankBranch) {
+    public Bank(final String name, final BankBranch mainBankBranch) {
         this.name = name;
         this.mainBankBranch = mainBankBranch;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public List<Client> getClientList() {
