@@ -68,12 +68,12 @@ public class Main {
         }
     }
 
-    public static void selectClient(final Scanner scanner, final Bank bank) {
+    public static void selectClient(final Scanner scanner, final List<Client> clients) {
         System.out.println("Select client");
         final int selectIdClient = scanner.nextInt();
-        final List<Client> clients = bank.getClientList();
         final Client clientSelect = clients.get(selectIdClient);
         System.out.println(clientSelect);
+        selectClientSwitch(scanner, clientSelect);
     }
 
     public static void showBankBranch(final Bank bank) {
@@ -98,6 +98,53 @@ public class Main {
         System.out.println(bank.getMainBankBranch());
     }
 
+    public static void showAccounts(final List<BankAccount> bankAccountList) {
+        System.out.println("Show client's accounts");
+        for (final BankAccount bankAccount : bankAccountList) {
+            System.out.println(bankAccount);
+        }
+    }
+
+    public static BankAccount createAccount(final Scanner scanner) {
+        System.out.println("Create new account");
+        System.out.println("Enter number");
+        final int numberNewAccount = scanner.nextInt();
+        System.out.println("Enter currency");
+        final String currencyNewAccount = scanner.nextLine();
+        return new BankAccount(numberNewAccount, 0, currencyNewAccount);
+    }
+
+    public static void selectClientAccount(final Scanner scanner, final List<BankAccount> bankAccounts) {
+        System.out.println("Select account");
+        final int selectAccountClient = scanner.nextInt();
+        final BankAccount selectAccount = bankAccounts.get(selectAccountClient);
+        System.out.println(selectAccount);
+    }
+
+    public static void selectClientSwitch(final Scanner scanner, final Client client) {
+        final int choiceSelectClient = scanner.nextInt();
+        System.out.println("What do you want to do?");
+        System.out.println("1. Show accounts");
+        System.out.println("2. Create new account");
+        System.out.println("3. Select account");
+        System.out.println("0. Exit");
+        switch (choiceSelectClient) {
+            case 1:
+                showAccounts(client.getAccounts());
+                break;
+            case 2:
+                final BankAccount account = createAccount(scanner);
+                client.getAccounts().add(account);
+                break;
+            case 3:
+                selectClientAccount(scanner, client.getAccounts());
+                break;
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+    }
+
     public static void selectSwitch(final Scanner scanner, final Bank bank) {
         final int choiceSelect = scanner.nextInt();
         System.out.println("What do you want to do?");
@@ -116,7 +163,7 @@ public class Main {
                 showClients(bank);
                 break;
             case 3:
-                selectClient(scanner, bank);
+                selectClient(scanner, bank.getClientList());
                 break;
             case 4:
                 showBankBranch(bank);

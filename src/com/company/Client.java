@@ -1,22 +1,20 @@
 package com.company;
 
-public class Client {
-    private int id;
-    private String surname;
-    private String name;
-    private int pesel;
-    private BankAccount account;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Client(int id, String surname, String name, int pesel, BankAccount account) {
+public class Client {
+    private final int id;
+    private final String surname;
+    private final String name;
+    private final int pesel;
+    private final List<BankAccount> accounts = new ArrayList<>();
+
+    public Client(final int id, final String surname, final String name, final int pesel) {
         this.id = id;
         this.surname = surname;
         this.name = name;
         this.pesel = pesel;
-        this.account = account;
-    }
-
-    public BankAccount getAccount() {
-        return account;
     }
 
     public int getId() {
@@ -35,24 +33,8 @@ public class Client {
         return pesel;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPesel(int pesel) {
-        this.pesel = pesel;
-    }
-
-    public void setAccount(BankAccount account) {
-        this.account = account;
+    public List<BankAccount> getAccounts() {
+        return accounts;
     }
 }
 
