@@ -2,8 +2,9 @@ package com.company;
 
 public class BankAccount {
     private final int number;
-    private double balance;
     private final String currency;
+
+    private double balance;
 
     public BankAccount(final int number, final double balance, final String currency) {
         this.number = number;
