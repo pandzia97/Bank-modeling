@@ -1,13 +1,13 @@
 package com.company;
 
 public class Address {
-    private String city;
-    private int zipCode;
-    private String street;
-    private int houseNumber;
-    private int apartmentNumber;
+    private final String city;
+    private final int zipCode;
+    private final String street;
+    private final int houseNumber;
+    private final int apartmentNumber;
 
-    public Address(String city, int zipCode, String street, int houseNumber, int apartmentNumber) {
+    public Address(final String city, final int zipCode, final String street, final int houseNumber, final int apartmentNumber) {
         this.city = city;
         this.zipCode = zipCode;
         this.street = street;
@@ -33,25 +33,5 @@ public class Address {
 
     public int getApartmentNumber() {
         return apartmentNumber;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public void setApartmentNumber(int apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
     }
 }
