@@ -119,6 +119,57 @@ public class Main {
         final int selectAccountClient = scanner.nextInt();
         final BankAccount selectAccount = bankAccounts.get(selectAccountClient);
         System.out.println(selectAccount);
+        selectClientAccountSwitch(scanner, selectAccount);
+    }
+
+    public static void addMoney(final Scanner scanner, final BankAccount bankAccount) {
+        System.out.println("Add money");
+        System.out.println("How much do you want to add?");
+        final double addAmount = scanner.nextDouble();
+        bankAccount.setBalance(bankAccount.getBalance() + addAmount);
+    }
+
+    public static boolean withdrawMoney(final Scanner scanner, final BankAccount bankAccount) {
+        System.out.println("Get money");
+        System.out.println("How much do you want to get?");
+        final double getAmount = scanner.nextDouble();
+        if (bankAccount.getBalance() < getAmount) {
+            return false;
+        }
+        bankAccount.setBalance(bankAccount.getBalance() - getAmount);
+        return true;
+    }
+
+    public static void showBalance(final BankAccount bankAccount) {
+        System.out.println("Show balande");
+        System.out.println(bankAccount.getBalance());
+    }
+
+    public static void selectClientAccountSwitch(final Scanner scanner, final BankAccount selectAccount) {
+        System.out.println("What do you want to do?");
+        System.out.println("1. Add money");
+        System.out.println("2. Get money");
+        System.out.println("3. Show balance");
+        System.out.println("0. Exit");
+        final int choiceSelectClientAccountSwitch = scanner.nextInt();
+        switch (choiceSelectClientAccountSwitch) {
+            case 1:
+                addMoney(scanner, selectAccount);
+                break;
+            case 2:
+                if (withdrawMoney(scanner, selectAccount)) {
+                    System.out.println("Done");
+                } else {
+                    System.out.println("Error");
+                }
+                break;
+            case 3:
+                showBalance(selectAccount);
+                break;
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
     }
 
     public static void selectClientSwitch(final Scanner scanner, final Client client) {

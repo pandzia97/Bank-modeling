@@ -16,7 +16,7 @@ public class BankAccount {
         return balance;
     }
 
-    public void setBalance(final char balance) {
+    public void setBalance(final double balance) {
         this.balance = balance;
     }
 
