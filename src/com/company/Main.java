@@ -85,12 +85,12 @@ public class Main {
         }
     }
 
-    public static void selectBankBranch(final Scanner scanner, final Bank bank) {
+    public static void selectBankBranch(final Scanner scanner, final List<BankBranch> bankBranches) {
         System.out.println("Select bank branch");
         final int selectIdBranch = scanner.nextInt();
-        final List<BankBranch> bankBranches = bank.getBankBranch();
         final BankBranch branchSelect = bankBranches.get(selectIdBranch);
         System.out.println(branchSelect);
+        selectBankBranchSwitch(scanner, branchSelect);
     }
 
     public static void showMainBank(final Bank bank) {
@@ -145,6 +145,74 @@ public class Main {
         }
     }
 
+    public static void showAddressBankBranch(final BankBranch bankBranch) {
+        System.out.println("Show address");
+        final Address address = bankBranch.getAddress();
+        System.out.println(address);
+    }
+
+    public static Employee createEmployee(final Scanner scanner) {
+        System.out.println("Create employee");
+        System.out.println("Enter ID: ");
+        final int idNewEmployee = scanner.nextInt();
+        System.out.println("Enter name:");
+        final String nameNewEmployee = scanner.nextLine();
+        System.out.println("Enter surname: ");
+        final String surnameNewEmployee = scanner.nextLine();
+        return new Employee(idNewEmployee, nameNewEmployee, surnameNewEmployee);
+    }
+
+    public static boolean removeEmployee(final Scanner scanner, final BankBranch bankBranch) {
+        System.out.println("Remove employee");
+        System.out.println("Enter number employee");
+        final int removeEmployee = scanner.nextInt();
+        if (removeEmployee < 0 || removeEmployee >= bankBranch.getEmployees().size()) {
+            return false;
+        }
+        bankBranch.getEmployees().remove(removeEmployee);
+        return true;
+    }
+
+    public static void showEmployees(final BankBranch bankBranch) {
+        System.out.println("Show employees");
+        final List<Employee> employee = bankBranch.getEmployees();
+        for (int i = 0; i < employee.size(); i++) {
+            System.out.println(i);
+            System.out.println(employee.get(i));
+        }
+    }
+
+    public static void selectBankBranchSwitch(final Scanner scanner, final BankBranch bankBranch) {
+        System.out.println("What do you want to do?");
+        System.out.println("1. Create employee");
+        System.out.println("2. Remove employee");
+        System.out.println("3. Show address");
+        System.out.println("4. Show employee");
+        System.out.println("0. Exit");
+        final int choiceSelectBankBranchSwitch = scanner.nextInt();
+        switch (choiceSelectBankBranchSwitch) {
+            case 1:
+                bankBranch.getEmployees().add(createEmployee(scanner));
+                break;
+            case 2:
+                if (removeEmployee(scanner, bankBranch)) {
+                    System.out.println("Done");
+                } else {
+                    System.out.println("Error");
+                }
+                break;
+            case 3:
+                showAddressBankBranch(bankBranch);
+                break;
+            case 4:
+                showEmployees(bankBranch);
+                break;
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+    }
+
     public static void selectSwitch(final Scanner scanner, final Bank bank) {
         final int choiceSelect = scanner.nextInt();
         System.out.println("What do you want to do?");
@@ -169,7 +237,7 @@ public class Main {
                 showBankBranch(bank);
                 break;
             case 5:
-                selectBankBranch(scanner, bank);
+                selectBankBranch(scanner, bank.getBankBranch());
                 break;
             case 6:
                 showMainBank(bank);
