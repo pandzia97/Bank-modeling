@@ -141,7 +141,7 @@ public class Main {
     }
 
     public static void showBalance(final BankAccount bankAccount) {
-        System.out.println("Show balande");
+        System.out.println("Show balance");
         System.out.println(bankAccount.getBalance());
     }
 
